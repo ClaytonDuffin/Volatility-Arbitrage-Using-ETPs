@@ -7,7 +7,6 @@ import warnings
 warnings.simplefilter(action='ignore', category=pd.errors.PerformanceWarning)
 
 
-
 def minMaxScaler(frame: pd.DataFrame,
                  lower: Optional[float] = 0,
                  upper: Optional[float] = 1) -> pd.DataFrame:
@@ -258,7 +257,6 @@ def polyPointArb(datasets: list[pd.DataFrame],
                     arbValues.append(arbLevel)
         
     return pd.DataFrame(arbValues[:(len(arbValues) - 1)], columns = ['arbLevels'])
-
 
 
 def tailComparison(datasets: list[pd.DataFrame],

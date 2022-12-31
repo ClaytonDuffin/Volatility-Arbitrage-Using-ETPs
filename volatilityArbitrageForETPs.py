@@ -236,7 +236,6 @@ def polyPointArb(datasets: list[pd.DataFrame],
     
     for window in tqdm(windows):
         tempBatchesAssetOne, tempBatchesAssetTwo = [], []
-        
         for datasetIndex, dataset in enumerate(datasets):
             batchedData = batcher(dataset.Close, (round(len(dataset) / 2)), window)
             batchedData = batchedData[window::]
@@ -244,12 +243,9 @@ def polyPointArb(datasets: list[pd.DataFrame],
                 tempBatchesAssetOne.append(batchedData)
             elif (datasetIndex == 1):
                 tempBatchesAssetTwo.append(batchedData)
-        
                 batchesForCurrentWindow = list((list1 + list2) for list1, list2 in zip(list(chain(*tempBatchesAssetOne)), list(chain(*tempBatchesAssetTwo))))
-                
                 batchForCurrentWindow = []
                 for batchesIndex, batches in enumerate(batchesForCurrentWindow):
-                    
                     batchForCurrentWindow.append([(pd.DataFrame((batches[:(int(len(batches) / 2))]), columns = ['Close'])),
                                                   (pd.DataFrame((batches[(int(len(batches) / 2)):]), columns = ['Close']))])
             

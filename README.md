@@ -83,10 +83,9 @@ Used for taking the differences in deviation for two series of the respective vo
 	- Takes in a list of time series dataframes for a number of assets to perform computations on. These would all be tickers based off of the same underlying ideally.
 * volArbType : Optional[str]
 	- Determines which type of volatility arbitrage to perform.
-	- Takes one of three inputs:
+	- Takes one of two inputs:
 		- 'Type1' ... Normalizes the time series (using min-max scaling) after the desired computations have been applied to the series. Uses a raw price series.
 		- 'Type2' ... Normalizes the time series (using min-max scaling) after the desired computations have been applied to the series. Uses a percentage change series.
-		- 'Type3' ... Assumes the user to be trading a leveraged ETP and it's non-leveraged counterpart (say SPXL and SPY). Simply divides leveraged ETP at each step by leverage factor. Nothing is done with this volArbType outside of this method. 
 * methodology : Optional[Callable[Union[pd.DataFrame.std, pd.DataFrame.var], int]]
 	- Defines whether to use standard deviation or variance for the computation. Conveniently, also works for stuff like pd.DataFrame.kurtosis, or pd.DataFrame.median. 
 * windowForMethodology : Optional[int]

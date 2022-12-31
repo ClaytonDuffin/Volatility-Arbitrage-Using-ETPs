@@ -256,7 +256,7 @@ def polyPointArb(datasets: list[pd.DataFrame],
         for batch in tqdm(batchForCurrentWindow):
             arbLevel = monoPointArb(batch, methodology = methodology)
             if (arbLevel != None):
-                if ((arbLevel == 1.00) and (arbValues[-1] == 1.00)) or (arbLevel == None):                                                              # I figure it's unlikely if not impossible that there will be 2 values back to back equal to 1.00.
+                if ((arbLevel == 1.00) and (arbValues[-1] == 1.00)): # I figure that it's unlikely if not impossible that there will be 2 naturally occurring values back to back equal to 1.00.
                     break
                 else:
                     arbValues.append(arbLevel)

@@ -137,7 +137,8 @@ print(monoArbLevel)
 ```
 ### Output <a name = "mpaout"></a>
 ```
-Returns a floating point number to measure the level of arbitrage. Parity exists at 1.00.```
+Returns a floating point number to measure the level of arbitrage. Parity exists at 1.00.
+```
 
 ## polyPointArb() <a name = "ppa"></a>
 

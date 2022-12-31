@@ -172,7 +172,7 @@ Returns a pandas dataFrame of numbers to measure the level of arbitrage for each
 
 ### Description <a name = "tcdesc"></a>
 
-Multiplies the length of the polyPointArb() output by 12%, and then takes the nth largest numbers on both sides of the distribution ((len(polyPointArb()) * 0.12) numbers on each side of the distriution), and adds them up. Then, a comparison between the two is returned In terms of "smaller tails are __output__ times smaller than larger tails," if value is negative, or "smaller tails are __output__ times larger than larger tails," if positive. This function would probably be better off bundled into polyPointArb() for runtime purposes, but to improve readability I've written it as a separate function.'
+Multiplies the length of the polyPointArb() output by 12%, and then takes the nth largest numbers on both sides of the distribution ((len(polyPointArb()) * 0.12) numbers on each side of the distriution), and adds them up. Then, a comparison between the two is returned In terms of "smaller tails are _output_ times smaller than larger tails," if value is negative, or "smaller tails are _output_ times larger than larger tails," if positive. This function would probably be better off bundled into polyPointArb() for runtime purposes, but to improve readability I've written it as a separate function.
 
 ### Parameters <a name = "tcpara"></a>
 * datasets : list[pd.DataFrame]

@@ -259,11 +259,11 @@ def polyPointArb(datasets: list[pd.DataFrame],
     return pd.DataFrame(arbValues[:(len(arbValues) - 1)], columns = ['arbLevels'])
 
 
-def tailComparison(datasets: list[pd.DataFrame],
+def tailsComparison(datasets: list[pd.DataFrame],
                    methodology: Optional[Callable[Union[pd.DataFrame.std, pd.DataFrame.var], int]] = pd.DataFrame.std) -> None:
  
     '''
-    Multiplies the length of the polyPointArb() output by 12%, and then takes the nth largest numbers on both sides of the
+    Multiplies the length of the polyPointArb() output by 12%, and then takes the nth largest/smallest numbers on both sides of the
     distribution ((len(polyPointArb()) * 0.12) numbers on each side of the distriution), and adds them up. Then, a comparison 
     between the two is returned In terms of "smaller tails are __output__ times smaller than larger tails," if value is negative,
     or "smaller tails are __output__ times larger than larger tails," if positive. This function would probably be better off bundled
@@ -318,7 +318,7 @@ print(float(polyArbLevels.median())) # to represent the series as a single numbe
 
 
 # Usage 5
-tailsRatio = tailComparison(datasets = fullDatasetForVolArb,
+tailsRatio = tailsComparison(datasets = fullDatasetForVolArb,
                             methodology = pd.DataFrame.std)
 print(tailsRatio)
 

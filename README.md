@@ -22,7 +22,7 @@
     + [Parameters](#ppapar)
     + [Usage](#ppausa)
     + [Output](#ppaout)
-+ [tailComparison()](#tc)
++ [tailsComparison()](#tc)
     + [Description](#tcdesc)
     + [Parameters](#tcpara)
     + [Usage](#tcusag)
@@ -96,7 +96,7 @@ Used for taking the differences in deviation for two series of the respective vo
 ### Usage <a name = "tadusa"></a>
 ```
 from claydates import MultiTickerProcessor
-tickerObjects = MultiTickerProcessor(['QQQ','TQQQ'], '1min', 100) 
+tickerObjects = MultiTickerProcessor(['SPY','SPXL'], '1min', 100) 
 fullDatasetForVolArb = tickerObjects.missingUnitsExcluded(matchDates = 'True')
 
 twoAssetVolArbDifferences(datasets = fullDatasetForVolArb,
@@ -126,7 +126,7 @@ Used for calculating the level of arbitrage at the current time-step (the most r
 ### Usage <a name = "mpausa"></a>
 ```
 from claydates import MultiTickerProcessor
-tickerObjects = MultiTickerProcessor(['QQQ','TQQQ'], '1min', 100) 
+tickerObjects = MultiTickerProcessor(['SPY','SPXL'], '1min', 100) 
 fullDatasetForVolArb = tickerObjects.missingUnitsExcluded(matchDates = 'True')
 
 monoArbLevel = monoPointArb(datasets = fullDatasetForVolArb,
@@ -154,7 +154,7 @@ Used for calculating the level of arbitrage at the current time-step (the most r
 ### Usage <a name = "ppausa"></a>
 ```
 from claydates import MultiTickerProcessor
-tickerObjects = MultiTickerProcessor(['QQQ','TQQQ'], '1min', 100) 
+tickerObjects = MultiTickerProcessor(['SPY','SPXL'], '1min', 100) 
 fullDatasetForVolArb = tickerObjects.missingUnitsExcluded(matchDates = 'True')
 
 polyArbLevels = polyPointArb(datasets = fullDatasetForVolArb,
@@ -168,11 +168,11 @@ print(float(polyArbLevels.median()))
 Returns a pandas dataFrame of numbers to measure the level of arbitrage for each combination the function generates. Parity exists at 1.00.
 ```
 
-## tailComparison() <a name = "tc"></a>
+## tailsComparison() <a name = "tc"></a>
 
 ### Description <a name = "tcdesc"></a>
 
-Multiplies the length of the polyPointArb() output by 12%, and then takes the nth largest numbers on both sides of the distribution ((len(polyPointArb()) * 0.12) numbers on each side of the distriution), and adds them up. Then, a comparison between the two is returned In terms of "smaller tails are _output_ times smaller than larger tails," if value is negative, or "smaller tails are _output_ times larger than larger tails," if positive. This function would probably be better off bundled into polyPointArb() for runtime purposes, but to improve readability I've written it as a separate function.
+Multiplies the length of the polyPointArb() output by 12%, and then takes the nth largest/smallest numbers on both sides of the distribution ((len(polyPointArb()) * 0.12) numbers on each side of the distriution), and adds them up. Then, a comparison between the two is returned In terms of "smaller tails are _output_ times smaller than larger tails," if value is negative, or "smaller tails are _output_ times larger than larger tails," if positive. This function would probably be better off bundled into polyPointArb() for runtime purposes, but to improve readability I've written it as a separate function.
 
 ### Parameters <a name = "tcpara"></a>
 * datasets : list[pd.DataFrame]
@@ -183,10 +183,10 @@ Multiplies the length of the polyPointArb() output by 12%, and then takes the nt
 ### Usage <a name = "tcusag"></a>
 ```
 from claydates import MultiTickerProcessor
-tickerObjects = MultiTickerProcessor(['QQQ','TQQQ'], '1min', 100) 
+tickerObjects = MultiTickerProcessor(['SPY','SPXL'], '1min', 100) 
 fullDatasetForVolArb = tickerObjects.missingUnitsExcluded(matchDates = 'True')
 
-tailsRatio = tailComparison(datasets = fullDatasetForVolArb,
+tailsRatio = tailsComparison(datasets = fullDatasetForVolArb,
                             methodology = pd.DataFrame.std)
 
 print(tailsRatio)

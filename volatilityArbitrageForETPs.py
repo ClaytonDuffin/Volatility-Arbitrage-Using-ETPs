@@ -306,15 +306,15 @@ differences = twoAssetVolArbDifferences(datasets = fullDatasetForVolArb,
                                         show = True)
 
 # Usage 3
-monoArbLevel = monoPointArb(datasets = fullDatasetForVolArb,
+monoArbDegree = monoPointArb(datasets = fullDatasetForVolArb,
                             methodology = pd.DataFrame.std,
                             windowForMethodology = 10)
-print(monoArbLevel)
+print(monoArbDegree)
 
 # Usage 4
-polyArbLevels = polyPointArb(datasets = fullDatasetForVolArb,
+polyArbDegrees = polyPointArb(datasets = fullDatasetForVolArb,
                              methodology = pd.DataFrame.std)
-print(float(polyArbLevels.median())) # to represent the series as a single number.
+print(float(polyArbDegrees.median())) # to represent the series as a single number.
 
 
 # Usage 5

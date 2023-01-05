@@ -32,9 +32,11 @@
 
 ## General Description <a name = "gendes"></a>
 
-Script for examining discrepancies in volatility for ETPs with the same underlying asset(s). In theory, the script could be used for performing volatility arbitrage, though I would guess that transaction and data costs, in addition to slippage, would render this strategy infeasible. Provided two assets, this script can compute the level of arbitrage represented as a number, with 1.00 representing parity. The script also has some functionality for observing the distribution of tails for the arbitrage levels generated within. There are plotting features too, which can be used to either observe a number of assets to aid in deciding which pair of assets to choose for further examination, or for observing the differences in standard deviation for the chosen pair of the two assets. This script could perhaps benefit slightly from being structured as a class, since the parameters would not have to be specified as often for the functions, but I think it functions just fine as a script. It should be noted that a variable named tickerSymbols is defined at the bottom of the script, and that multiAssetArbPlot() uses this variable, which is not defined locally inside the function.
+Script for examining discrepancies in volatility for ETPs with the same underlying asset(s). In theory, the script could be used for performing volatility arbitrage, though I would guess that transaction and data costs, in addition to slippage, would render this strategy infeasible. Provided two assets, this script can compute the degree of arbitrage represented as a number, with 1.00 representing parity. The script also has some functionality for observing the distribution of tails for the arbitrage degrees generated within. There are plotting features too, which can be used to either observe a number of assets to aid in deciding which pair of assets to choose for further examination, or for observing the differences in standard deviation for the chosen pair of the two assets. 
 
-The script obtains data from the claydates package, which calls upon the Twelve Data API. For more information on this, navigate to the claydates package's [Github](https://github.com/ClaytonDuffin/claydates), or [PyPi](https://pypi.org/project/claydates/). For more information on the batcher() function, [visit where I wrote about it in a separate project](https://github.com/ClaytonDuffin/Complex-Plane-Analysis#batcher).
+This script could perhaps benefit slightly from being structured as a class, since the parameters would not have to be specified as often for the functions, but I think it functions just fine as a script. It should be noted that a variable named tickerSymbols is defined at the bottom of the script, and that multiAssetArbPlot() uses this variable, which is not defined locally inside the function.
+
+The script obtains data from the claydates package, which calls upon the Twelve Data API. For more information, navigate to the claydates package's [Github](https://github.com/ClaytonDuffin/claydates), or [PyPi](https://pypi.org/project/claydates/). For more information on the batcher() function, [visit where I wrote about it in a separate project](https://github.com/ClaytonDuffin/Complex-Plane-Analysis#batcher).
 
 ## multiAssetArbPlot() <a name = "maap"></a>
 
@@ -113,7 +115,7 @@ Depending on the value of the 'show' parameter, the function either returns a pa
 ## monoPointArb() <a name = "mpa"></a>
 
 ### Description <a name = "mpades"></a>
-Used for calculating the level of arbitrage at the current time-step (the most recent unit in each dataframe). Uses a blend of differences computed from the processes for both the 'Type1' and 'Type2' volArbType argument. Returns a number to measure the level of arbitrage. Parity exists when this function's output is equal to  1.00.
+Used for calculating the degree of arbitrage at the current time-step (the most recent unit in each dataframe). Uses a blend of differences computed from the processes for both the 'Type1' and 'Type2' volArbType argument. Returns a number to quantify the degree of arbitrage. Parity exists when this function's output is equal to  1.00.
 
 ### Parameters  <a name = "mpapar"></a>
 * datasets : list[pd.DataFrame]
@@ -129,21 +131,21 @@ from claydates import MultiTickerProcessor
 tickerObjects = MultiTickerProcessor(['SPY','SPXL'], '1min', 100) 
 fullDatasetForVolArb = tickerObjects.missingUnitsExcluded(matchDates = 'True')
 
-monoArbLevel = monoPointArb(datasets = fullDatasetForVolArb,
+monoArbDegree = monoPointArb(datasets = fullDatasetForVolArb,
                             methodology = pd.DataFrame.std,
                             windowForMethodology = 10)
 
-print(monoArbLevel)
+print(monoArbDegree)
 ```
 ### Output <a name = "mpaout"></a>
 ```
-Returns a floating point number to measure the level of arbitrage. Parity exists at 1.00.
+Returns a floating point number to measure the degree of arbitrage. Parity exists at 1.00.
 ```
 
 ## polyPointArb() <a name = "ppa"></a>
 
 ### Description <a name = "ppades"></a>
-Used for calculating the level of arbitrage at the current time-step (the most recent unit in each dataframe), based on numerous combinations of parameters. Uses a blend of differences computed from the processes for the 'Type1' and 'Type2' volArbType argument, but uses instead a series of numbers for windowForMethodology. polyPointArb() also uses a series of numbers to call the batcher() function, which spaces the data units in different ways than just the space which was fed into input. In general, the function can be thought of as a nested, or double for-loop. I personally like how the tqdm progress bars are right now, but you may not. Turn them off if this is the case by removing them from the start of the for-loops. Returns a series of numbers to measure the level of arbitrage for each combination the function generates. It is worth noting that I've built this function with blending this series of numbers eventually into 1 final value, like monoPointArb(), in mind. I did this in hopes of finding a more accurate measurement for degrees of arbitrage.
+Used for calculating the degree of arbitrage at the current time-step (the most recent unit in each dataframe), based on numerous combinations of parameters. Uses a blend of differences computed from the processes for the 'Type1' and 'Type2' volArbType argument, but uses instead a series of numbers for windowForMethodology. polyPointArb() also introduces the batcher() function, which spaces the data units in different ways than just the space which was fed into input. The spaces are the same values for batcher() as they are for windowForMethodology, and in general, polyPointArb() can be thought of as a nested for-loop. I personally like how the tqdm progress bars are right now, but you may not. Turn them off if this is the case by removing them from the start of the for-loops. This function returns a series of numbers to measure the degree of arbitrage for each combination the function generates. It is worth noting that I've built this function with blending this series of numbers eventually into 1 final value, like monoPointArb(). I created polyPointArb() in hopes of finding a more accurate measurement for degree of arbitrage.
 
 ### Parameters <a name = "ppapar"></a>
 * datasets : list[pd.DataFrame]
@@ -165,7 +167,7 @@ print(float(polyArbLevels.median()))
 
 ### Output <a name = "ppaout"></a>
 ```
-Returns a pandas dataFrame of numbers to measure the level of arbitrage for each combination the function generates. Parity exists at 1.00.
+Returns a pandas DataFrame of numbers to measure the degree of arbitrage for each combination the function generates. Parity exists at 1.00.
 ```
 
 ## tailsComparison() <a name = "tc"></a>

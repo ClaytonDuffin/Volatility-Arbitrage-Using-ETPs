@@ -159,10 +159,10 @@ from claydates import MultiTickerProcessor
 tickerObjects = MultiTickerProcessor(['SPY','SPXL'], '1min', 100) 
 fullDatasetForVolArb = tickerObjects.missingUnitsExcluded(matchDates = 'True')
 
-polyArbLevels = polyPointArb(datasets = fullDatasetForVolArb,
+polyArbDegrees = polyPointArb(datasets = fullDatasetForVolArb,
                              methodology = pd.DataFrame.std)
 
-print(float(polyArbLevels.median()))
+print(float(polyArbDegrees.median()))
 ```
 
 ### Output <a name = "ppaout"></a>

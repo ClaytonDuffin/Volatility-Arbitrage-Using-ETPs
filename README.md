@@ -132,8 +132,8 @@ tickerObjects = MultiTickerProcessor(['SPY','SPXL'], '1min', 100)
 fullDatasetForVolArb = tickerObjects.missingUnitsExcluded(matchDates = 'True')
 
 monoArbDegree = monoPointArb(datasets = fullDatasetForVolArb,
-                            methodology = pd.DataFrame.std,
-                            windowForMethodology = 10)
+                             methodology = pd.DataFrame.std,
+                             windowForMethodology = 10)
 
 print(monoArbDegree)
 ```
@@ -160,7 +160,7 @@ tickerObjects = MultiTickerProcessor(['SPY','SPXL'], '1min', 100)
 fullDatasetForVolArb = tickerObjects.missingUnitsExcluded(matchDates = 'True')
 
 polyArbDegrees = polyPointArb(datasets = fullDatasetForVolArb,
-                             methodology = pd.DataFrame.std)
+                              methodology = pd.DataFrame.std)
 
 print(float(polyArbDegrees.median()))
 ```
@@ -189,7 +189,7 @@ tickerObjects = MultiTickerProcessor(['SPY','SPXL'], '1min', 100)
 fullDatasetForVolArb = tickerObjects.missingUnitsExcluded(matchDates = 'True')
 
 tailsRatio = tailsComparison(datasets = fullDatasetForVolArb,
-                            methodology = pd.DataFrame.std)
+                             methodology = pd.DataFrame.std)
 
 print(tailsRatio)
 ```
